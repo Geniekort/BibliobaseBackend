@@ -10,10 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_02_101757) do
+ActiveRecord::Schema.define(version: 2021_03_05_085613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "data_attributes", force: :cascade do |t|
+    t.string "type"
+    t.string "name"
+    t.jsonb "definition"
+    t.jsonb "validation"
+    t.bigint "data_type_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["data_type_id"], name: "index_data_attributes_on_data_type_id"
+  end
+
+  create_table "data_data_objects", force: :cascade do |t|
+    t.jsonb "data"
+    t.bigint "data_type_id", null: false
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["data_type_id"], name: "index_data_data_objects_on_data_type_id"
+    t.index ["project_id"], name: "index_data_data_objects_on_project_id"
+  end
+
+  create_table "data_data_types", force: :cascade do |t|
+    t.jsonb "definition"
+    t.string "name"
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_data_data_types_on_project_id"
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
@@ -21,4 +51,8 @@ ActiveRecord::Schema.define(version: 2021_03_02_101757) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "data_attributes", "data_data_types", column: "data_type_id"
+  add_foreign_key "data_data_objects", "data_data_types", column: "data_type_id"
+  add_foreign_key "data_data_objects", "projects"
+  add_foreign_key "data_data_types", "projects"
 end
