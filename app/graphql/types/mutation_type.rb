@@ -9,5 +9,15 @@ module Types
     field :delete_project,
           mutation: Mutations::Project::Delete,
           description: "Delete a project for the current organization"
+
+    field :create_data_type,
+          mutation: Mutations::Data::DataType::Create,
+          description: "Create a new data_type"
+    field :update_data_type,
+          mutation: Mutations::Data::DataType::Update,
+          description: "Update a data_type"
+    field :delete_data_type,
+          mutation: Mutations::Data::DataType::Delete,
+          description: "Delete a data_type"
   end
 end

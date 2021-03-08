@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2021_03_05_085613) do
   enable_extension "plpgsql"
 
   create_table "data_attributes", force: :cascade do |t|
-    t.string "type"
+    t.string "attribute_type"
     t.string "name"
     t.jsonb "definition"
     t.jsonb "validation"

@@ -1,7 +1,7 @@
 class CreateDataAttributes < ActiveRecord::Migration[6.1]
   def change
     create_table :data_attributes do |t|
-      t.string :type
+      t.string :attribute_type
       t.string :name
       t.jsonb :definition
       t.jsonb :validation

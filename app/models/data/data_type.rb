@@ -5,5 +5,7 @@ class Data::DataType < ApplicationRecord
                 data_object_class_name: "Data::DataObject"
 
   belongs_to :project
+
+  validates :name, presence: true
 end
  
