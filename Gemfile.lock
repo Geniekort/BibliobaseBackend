@@ -2,6 +2,7 @@ PATH
   remote: vendor/gems/dynamic_model
   specs:
     dynamic_model (0.1.0)
+      activerecord (>= 4.0)
 
 GEM
   remote: https://rubygems.org/

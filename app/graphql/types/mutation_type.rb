@@ -19,5 +19,15 @@ module Types
     field :delete_data_type,
           mutation: Mutations::Data::DataType::Delete,
           description: "Delete a data_type"
+
+    field :create_data_object,
+          mutation: Mutations::Data::DataObject::Create,
+          description: "Create a new data_object"
+    field :update_data_object,
+          mutation: Mutations::Data::DataObject::Update,
+          description: "Update a data_object"
+    field :delete_data_object,
+          mutation: Mutations::Data::DataObject::Delete,
+          description: "Delete a data_object"
   end
 end

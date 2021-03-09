@@ -25,7 +25,10 @@ module Mutations
           context.add_error(
             GraphQL::ExecutionError.new(
               resource.errors.messages[attribute][error_index],
-              extensions: { attribute: attribute_name }
+              extensions: {
+                attribute: attribute_name, 
+                details: resource.errors.details[attribute][error_index]
+              }
             )
           )
         end

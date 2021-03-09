@@ -18,8 +18,7 @@ ActiveRecord::Schema.define(version: 2021_03_05_085613) do
   create_table "data_attributes", force: :cascade do |t|
     t.string "attribute_type"
     t.string "name"
-    t.jsonb "definition"
-    t.jsonb "validation"
+    t.jsonb "validation_definition", default: {}
     t.bigint "data_type_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -27,7 +26,7 @@ ActiveRecord::Schema.define(version: 2021_03_05_085613) do
   end
 
   create_table "data_data_objects", force: :cascade do |t|
-    t.jsonb "data"
+    t.jsonb "data", default: {}
     t.bigint "data_type_id", null: false
     t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
