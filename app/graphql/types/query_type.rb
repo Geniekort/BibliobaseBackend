@@ -2,6 +2,7 @@ module Types
   class QueryType < Types::BaseObject
     
     include Types::Query::Projects
+    include Types::Query::Imports
     include Types::Query::DataTypes
     include Types::Query::DataObjects
 

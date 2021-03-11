@@ -29,5 +29,19 @@ module Types
     field :delete_data_object,
           mutation: Mutations::Data::DataObject::Delete,
           description: "Delete a data_object"
+
+    field :create_import,
+          mutation: Mutations::Import::Create,
+          description: "Create a new import"
+    field :update_import,
+          mutation: Mutations::Import::Update,
+          description: "Update an import"
+    field :delete_import,
+          mutation: Mutations::Import::Delete,
+          description: "Delete an import"
+
+    field :file_tester,
+          mutation: Mutations::FileTester,
+          description: "Test the file"
   end
 end

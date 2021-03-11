@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_05_085613) do
+ActiveRecord::Schema.define(version: 2021_03_11_145947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,17 @@ ActiveRecord::Schema.define(version: 2021_03_05_085613) do
     t.index ["project_id"], name: "index_data_data_types_on_project_id"
   end
 
+  create_table "imports", force: :cascade do |t|
+    t.string "name"
+    t.string "raw_data"
+    t.jsonb "meta"
+    t.jsonb "parsed_data"
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_imports_on_project_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -54,4 +65,5 @@ ActiveRecord::Schema.define(version: 2021_03_05_085613) do
   add_foreign_key "data_data_objects", "data_data_types", column: "data_type_id"
   add_foreign_key "data_data_objects", "projects"
   add_foreign_key "data_data_types", "projects"
+  add_foreign_key "imports", "projects"
 end

@@ -27,11 +27,13 @@ gem "bootsnap", ">= 1.4.4", require: false
 
 gem "dynamic_model", path: "vendor/gems/dynamic_model"
 
+gem "apollo_upload_server", "2.0.3"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
-  gem "rspec-rails"
   gem "database_cleaner"
+  gem "rspec-rails"
 end
 
 group :development do

@@ -66,6 +66,9 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    apollo_upload_server (2.0.3)
+      graphql (>= 1.8)
+      rails (>= 4.2)
     bootsnap (1.7.2)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -180,6 +183,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  apollo_upload_server (= 2.0.3)
   bootsnap (>= 1.4.4)
   byebug
   database_cleaner
