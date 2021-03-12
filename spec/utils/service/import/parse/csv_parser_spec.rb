@@ -37,23 +37,22 @@ RSpec.describe Service::Import::Parse::CsvParser do
         )
       end
     end
+  end
+  [",", ";", "\t"].each do |separator|
+    context "with specified column separator '#{separator}" do
+      before(:each) do
+        import.raw_data = %(column0#{separator}column1)
+        import.meta["csv"] = { "column_separator" => separator }
+      end
 
-    [",", ";", "\t"].each do |separator|
-      context "with specified column separator '#{separator}" do
-        before(:each) do
-          import.raw_data = %(column0#{separator}column1)
-          import.meta["csv"] = { "column_separator" => separator }
-        end
-
-        it "parses values correctly" do
-          subject.perform
-          expect(import.parsed_data).to eq(
-            [{
-              "0" => "column0",
-              "1" => "column1"
-            }]
-          )
-        end
+      it "parses values correctly" do
+        subject.perform
+        expect(import.parsed_data).to eq(
+          [{
+            "0" => "column0",
+            "1" => "column1"
+          }]
+        )
       end
     end
   end
