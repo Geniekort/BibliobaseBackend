@@ -7,8 +7,8 @@ module Mutations::Import
     field :import, Types::Object::Import, null: false
 
     def resolve(input:)
-      import = Import.new(input.to_kwargs)
-      import.save
+      import = Import.new
+      import.service(:creator, { input: input.to_kwargs }).perform
       render_resource(:import, import)
     end
   end

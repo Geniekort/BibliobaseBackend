@@ -9,7 +9,7 @@ module Mutations::Import
 
     def resolve(id:, input:)
       import = Import.find(id)
-      import.update(input.to_kwargs)
+      import.service(:updater, { input: input.to_kwargs }).perform
       render_resource(:import, import)
     end
   end
