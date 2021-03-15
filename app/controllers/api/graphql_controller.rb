@@ -13,6 +13,8 @@ module Api
         # Query context goes here, for example:
         # current_user: current_user,
       }
+
+      context = graphql_context(:user)
       result = BibliobaseBackendSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
       render json: result
     rescue => e

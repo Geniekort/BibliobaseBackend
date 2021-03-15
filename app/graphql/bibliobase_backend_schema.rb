@@ -1,4 +1,14 @@
 class BibliobaseBackendSchema < GraphQL::Schema
+  # It's important that this line goes before setting the query and mutation type on your
+  # schema in graphql versions < 1.10.0
+  use GraphqlDevise::SchemaPlugin.new(
+    query: Types::QueryType,
+    mutation: Types::MutationType,
+    resource_loaders: [
+      GraphqlDevise::ResourceLoader.new("User", only: %i[login logout sign_up confirm_account])
+    ]
+  )
+
   mutation(Types::MutationType)
   query(Types::QueryType)
 
