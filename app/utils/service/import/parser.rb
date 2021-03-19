@@ -15,7 +15,7 @@ module Service::Import
     end
 
     def meta
-      record.meta.deep_stringify_keys || {}
+      record.meta&.deep_stringify_keys || {}
     end
   end
 end
