@@ -8,7 +8,7 @@ module Types::Input
       description: "Name of the import"
     argument :raw_data, String, required: false,
       description: "The raw data contained in the imported file"
-    argument :meta, GraphQL::Types::JSON, required: false,
+    argument :meta, Types::Input::ImportField::Meta, required: false,
       description: "Meta data of the file"
     argument :project_id, ID, required: false
   end

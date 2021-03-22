@@ -19,11 +19,11 @@ module Service::Import::Parse
     end
 
     def file_has_headers
-      meta.dig("csv", "headers")
+      meta["headers"]
     end
 
     def column_separator
-      meta.dig("csv", "column_separator")
+      meta["column_separator"]
     end
 
     def raw_data
@@ -32,10 +32,8 @@ module Service::Import::Parse
 
     def meta
       {
-        "csv" => {
-          "headers" => false,
-          "column_separator" => ","
-        }
+        "headers" => false,
+        "column_separator" => ","
       }.deep_merge(record.meta || {})
     end
   end

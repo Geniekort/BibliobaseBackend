@@ -7,7 +7,7 @@ class BibliobaseBackendSchema < GraphQL::Schema
     resource_loaders: [
       GraphqlDevise::ResourceLoader.new("User", only: %i[login logout sign_up confirm_account])
     ],
-    authenticate_default: true
+    authenticate_default: false
   )
 
   mutation(Types::MutationType)
