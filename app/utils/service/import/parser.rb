@@ -4,8 +4,10 @@ module Service::Import
     def perform
       if meta["format"] == "csv"
         record.service("parse/csv_parser").perform
+        record.parsed = true
       elsif meta["format"] == "xml"
         record.service("parse/xml_parser").perform
+        record.parsed = true
       else 
         record.errors.add(
           :meta,

@@ -25,7 +25,7 @@ RSpec.describe Service::Import::Parse::CsvParser do
     end
 
     context "with headers present" do
-      let(:meta) { { "csv" => { "headers" => true } } }
+      let(:meta) { { "headers" => true } }
 
       it "parses with first row values as keys" do
         subject.perform
@@ -38,11 +38,12 @@ RSpec.describe Service::Import::Parse::CsvParser do
       end
     end
   end
+
   [",", ";", "\t"].each do |separator|
     context "with specified column separator '#{separator}" do
       before(:each) do
         import.raw_data = %(column0#{separator}column1)
-        import.meta["csv"] = { "column_separator" => separator }
+        import.meta = { "column_separator" => separator }
       end
 
       it "parses values correctly" do

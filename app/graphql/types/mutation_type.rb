@@ -39,6 +39,9 @@ module Types
     field :delete_import,
           mutation: Mutations::Import::Delete,
           description: "Delete an import"
+    field :preparse_import,
+          mutation: Mutations::Import::Preparse,
+          description: "Preparse an input to preview what the parsed_data would look like"
 
     field :file_tester,
           mutation: Mutations::FileTester,
