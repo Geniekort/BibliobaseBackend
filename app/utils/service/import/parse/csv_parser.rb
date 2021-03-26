@@ -29,7 +29,7 @@ module Service::Import::Parse
 
     def column_separator
       sep = meta["column_separator"]
-      !sep.empty? ? sep : ","
+      !sep&.empty? ? sep : ","
     end
 
     def raw_data
@@ -43,4 +43,4 @@ module Service::Import::Parse
       }.deep_merge(record.meta || {})
     end
   end
-end
+end 
