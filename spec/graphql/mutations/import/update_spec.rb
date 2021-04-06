@@ -46,7 +46,7 @@ RSpec.describe Mutations::Import::Update do
           expect(import_records.length).to eq 2
           subject.resolve(id: import.id, input: input, parse_data: true)
           import_records.each do |import_record|
-            expect { import_record.reload }.not_to raise_error ActiveRecord::RecordNotFound
+            expect { import_record.reload }.not_to raise_error
             expect(import_record.id).to be_a Numeric
           end
         end

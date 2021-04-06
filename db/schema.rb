@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_23_103055) do
+ActiveRecord::Schema.define(version: 2021_04_06_121200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "curation_sessions", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.bigint "data_type_id", null: false
+    t.bigint "import_id", null: false
+    t.bigint "started_by_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["data_type_id"], name: "index_curation_sessions_on_data_type_id"
+    t.index ["import_id"], name: "index_curation_sessions_on_import_id"
+    t.index ["project_id"], name: "index_curation_sessions_on_project_id"
+    t.index ["started_by_id"], name: "index_curation_sessions_on_started_by_id"
+  end
 
   create_table "data_attributes", force: :cascade do |t|
     t.string "attribute_type"
@@ -93,6 +106,9 @@ ActiveRecord::Schema.define(version: 2021_03_23_103055) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "curation_sessions", "data_data_types", column: "data_type_id"
+  add_foreign_key "curation_sessions", "imports"
+  add_foreign_key "curation_sessions", "users", column: "started_by_id"
   add_foreign_key "data_attributes", "data_data_types", column: "data_type_id"
   add_foreign_key "data_data_objects", "data_data_types", column: "data_type_id"
   add_foreign_key "data_data_objects", "projects"

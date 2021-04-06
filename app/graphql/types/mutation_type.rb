@@ -46,5 +46,12 @@ module Types
     field :file_tester,
           mutation: Mutations::FileTester,
           description: "Test the file"
+
+    field :create_curation_session,
+          mutation: Mutations::CurationSession::Create,
+          description: "Create a new curation_session"
+    field :delete_curation_session,
+          mutation: Mutations::CurationSession::Delete,
+          description: "Delete a curation_session"
   end
 end
