@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_121200) do
+ActiveRecord::Schema.define(version: 2021_04_12_071901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "audit_resource_actions", force: :cascade do |t|
+    t.string "type"
+    t.bigint "created_by_id", null: false
+    t.bigint "project_id", null: false
+    t.bigint "resource_id"
+    t.string "resource_type"
+    t.jsonb "old_attributes", default: {}
+    t.jsonb "new_attributes", default: {}
+    t.jsonb "meta", default: {}
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_by_id"], name: "index_audit_resource_actions_on_created_by_id"
+    t.index ["meta"], name: "index_audit_resource_actions_on_meta"
+    t.index ["project_id"], name: "index_audit_resource_actions_on_project_id"
+    t.index ["resource_type", "resource_id"], name: "index_audit_resource_actions_on_resource_type_and_resource_id"
+    t.index ["type"], name: "index_audit_resource_actions_on_type"
+  end
 
   create_table "curation_sessions", force: :cascade do |t|
     t.bigint "project_id", null: false
@@ -106,6 +124,7 @@ ActiveRecord::Schema.define(version: 2021_04_06_121200) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "audit_resource_actions", "users", column: "created_by_id"
   add_foreign_key "curation_sessions", "data_data_types", column: "data_type_id"
   add_foreign_key "curation_sessions", "imports"
   add_foreign_key "curation_sessions", "users", column: "started_by_id"
