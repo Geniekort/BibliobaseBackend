@@ -7,11 +7,5 @@ FactoryBot.define do
     type { nil }
     meta { {} }
     created_by { build(:user) }
-
-    trait :curation_action do
-      initialize_with { Audit::CurationAction.new(attributes) }
-      type { "Audit::CurationAction" }
-      meta{ { curation_type: "Create" } }
-    end
   end
 end

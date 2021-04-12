@@ -1,4 +1,4 @@
-class Audit::CurationAction < Audit::ResourceAction
+class Audit::CurationAction < Audit::Action
   def curation_type
     meta["curation_type"]
   end
@@ -9,23 +9,6 @@ class Audit::CurationAction < Audit::ResourceAction
       return false
     end
 
-    return false if curation_type == "Create" && !validate_resource
-
     true
-  end
-
-  # Validate whether the resource is actually present
-  def validate_resource
-    unless resource_type.present? && resource_type.safe_constantize
-      errors.add(:resource, :invalid_type)
-      return false
-    end
-
-    unless resource.present?
-      errors.add(:resource, :blank)
-      return false
-    end
-
-    true
-  end
+  end  
 end
