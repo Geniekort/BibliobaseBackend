@@ -1,0 +1,55 @@
+module ApiObject::CurationSession
+  class CurateRecord < ApiObject::Base
+    def save
+      if curation_service.perform
+        true
+      else
+        errors.merge!(curation_service.errors)
+        false
+      end
+    end
+
+    def validate
+      return false unless validate_curation_type
+      return false unless validate_import_record
+    end
+
+    private
+
+    def import_record
+      record.import_records.find_by(id: input["import_record_id"])
+    end
+
+    def curation_type
+      input["curation_type"]
+    end
+
+    def curation_service
+      @curation_service ||= curation_service_class.new(import_record, input)
+    end
+
+    def curation_service_class
+      "CurationSession::CurateRecord::#{curation_type}".safe_constantize
+    end
+
+    # Validate whether the curation_type in the input is valid
+    def validate_curation_type
+      unless %w[Create Delete].include? curation_type
+        errors.add(:input, :invalid_curation_type)
+        return false
+      end
+
+      true
+    end
+
+    # Validate whether the import_record_id corresponds to an existing import record
+    def validate_import_record
+      unless import_record
+        errors.add(:input, :import_record_not_found)
+        return false
+      end
+
+      true
+    end
+  end
+end
