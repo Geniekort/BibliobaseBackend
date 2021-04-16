@@ -53,5 +53,8 @@ module Types
     field :delete_curation_session,
           mutation: Mutations::CurationSession::Delete,
           description: "Delete a curation_session"
+    field :curate_record,
+          mutation: Mutations::CurationSession::CurateRecord,
+          description: "Curate a record within a specific curation_session"
   end
 end

@@ -7,6 +7,8 @@ FactoryBot.define do
   factory :attribute, class: "Data::Attribute" do
     project
     data_type
+    attribute_type { "Text" }
+    name { "attribute_name" }
   end
 
   factory :data_object, class: "Data::DataObject" do

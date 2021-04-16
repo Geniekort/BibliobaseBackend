@@ -2,8 +2,8 @@ module Auditable
   extend ActiveSupport::Concern
 
   included do
-    has_many :resource_actions,
-             class_name: "Audit::ResourceAction",
+    has_many :actions,
+             class_name: "Audit::Action",
              as: :resource
   end
 end
