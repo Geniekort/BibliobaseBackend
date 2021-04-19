@@ -9,11 +9,7 @@ class CurationSession < ApplicationRecord
   has_many :curation_actions,
            class_name: "Audit::CurationAction"
 
-  def curation_actions
-    project.curation_actions.where("meta @> ?", {curation_session_id: id}.to_json)
+  def curatable_records
+    import.import_records
   end
-
-  # def curatable_records
-  #   import.import_records
-  # end
 end

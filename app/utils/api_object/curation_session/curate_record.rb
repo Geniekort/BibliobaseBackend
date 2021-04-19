@@ -16,8 +16,12 @@ module ApiObject::CurationSession
 
     private
 
+    def curation_session
+      @curation_session ||= CurationSession.find_by(id: input[:curation_session_id])
+    end
+
     def import_record
-      record.import_records.find_by(id: input["import_record_id"])
+      curation_session.curatable_records.find_by(id: input[:import_record_id])
     end
 
     def curation_type
