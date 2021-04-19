@@ -13,7 +13,7 @@ class CurationSession < ApplicationRecord
     project.curation_actions.where("meta @> ?", {curation_session_id: id}.to_json)
   end
 
-  def curatable_records
-    import.import_records
-  end
+  # def curatable_records
+  #   import.import_records
+  # end
 end
