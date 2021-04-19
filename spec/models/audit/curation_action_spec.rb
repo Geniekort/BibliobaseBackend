@@ -54,5 +54,18 @@ RSpec.describe Audit::CurationAction, type: :model do
         end
       end
     end
+
+    context "with duplicate import_record_id scoped to curation_session" do
+      before do
+        existing_action = create(:curation_action)
+        subject.curation_session = existing_action.curation_session
+        subject.import_record_id = existing_action.import_record_id
+      end
+
+      it "raises a validation error" do
+        expect(subject.validate).to eq false
+        expect(subject.errors.details[:import_record_id]).to include(error: :taken, value: subject.import_record_id)
+      end
+    end
   end
 end

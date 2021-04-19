@@ -11,7 +11,7 @@ RSpec.describe Mutations::CurationSession::CurateRecord, type: :request do
     let(:import_record) { create(:import_record, import: import) }
     let(:data_type) { create(:data_type, project: project) }
     let(:project) { create(:project) }
-    let(:curation_session) { create(:curation_session, project: project) }
+    let(:curation_session) { create(:curation_session, project: project, import: import, data_type: data_type) }
     let(:mutation_string) do
       <<~GQL
         mutation curateRecord($input: CurateRecordInput!){
@@ -45,6 +45,10 @@ RSpec.describe Mutations::CurationSession::CurateRecord, type: :request do
         expect(curation_session.curation_actions.first.import_record).to eq import_record
       end
 
+      it "creates a CurationAction for the specific curation_type" do
+        expect(curation_session.curation_actions.first.curation_type).to eq "Delete"
+      end
+
       it "does not create a DataObject" do
         expect(data_type.data_objects.length).to eq 0
       end
@@ -55,7 +59,7 @@ RSpec.describe Mutations::CurationSession::CurateRecord, type: :request do
     end
 
     context "with create input" do
-      let(:text_attribute) { create(:attribute, name: "title") }
+      let(:text_attribute) { create(:attribute, name: "title", data_type: curation_session.data_type) }
 
       before do
         mutation mutation_string,
@@ -80,8 +84,11 @@ RSpec.describe Mutations::CurationSession::CurateRecord, type: :request do
         expect(curation_session.curation_actions.first.import_record).to eq import_record
       end
 
+      it "creates a CurationAction for the specific curation_type" do
+        expect(curation_session.curation_actions.first.curation_type).to eq "Create"
+      end
+
       it "creates a DataObject" do
-        expect(data_type.data_objects.length).to eq 1
         expect(data_type.data_objects.length).to eq 1
       end
 

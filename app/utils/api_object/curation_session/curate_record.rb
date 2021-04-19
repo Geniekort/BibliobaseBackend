@@ -1,10 +1,13 @@
 module ApiObject::CurationSession
   class CurateRecord < ApiObject::Base
+
+    delegate_missing_to :import_record
+
     def save
       if curation_service.perform
         true
       else
-        errors.merge!(curation_service.errors)
+        errors.merge!(curation_service)
         false
       end
     end
@@ -25,15 +28,15 @@ module ApiObject::CurationSession
     end
 
     def curation_type
-      input["curation_type"]
+      input[:curation_type]
     end
 
     def curation_service
-      @curation_service ||= curation_service_class.new(import_record, input)
+      @curation_service ||= curation_service_class.new(curation_session, import_record, input)
     end
 
     def curation_service_class
-      "CurationSession::CurateRecord::#{curation_type}".safe_constantize
+      "Service::CurationSession::CurateRecord::#{curation_type}".safe_constantize
     end
 
     # Validate whether the curation_type in the input is valid

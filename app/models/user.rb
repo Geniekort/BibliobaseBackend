@@ -8,4 +8,5 @@ class User < ApplicationRecord
   has_many :created_resource_actions,
     class_name: "Audit::ResourceAction",
     foreign_key: "created_by_id"
+
 end
