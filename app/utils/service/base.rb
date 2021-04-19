@@ -6,5 +6,12 @@ module Service
       @record = record
       @params = params
     end
+
+    def perform(*args)
+      ActiveRecord::Base.transaction do
+        return true if perform!(*args)
+      end
+      false
+    end
   end
 end

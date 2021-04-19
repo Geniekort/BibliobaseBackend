@@ -1,6 +1,6 @@
 module Service::Import
   class Updater < Base
-    def perform(persist: true)
+    def perform!(persist: true)
       record.assign_attributes parsed_params[:input]
       record.service(:parser).perform if parsed_params[:parse_data]
       record.save if persist

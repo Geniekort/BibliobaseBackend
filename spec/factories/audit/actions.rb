@@ -5,10 +5,10 @@ FactoryBot.define do
     type { nil }
     meta { {}  }
 
-    trait :curation_action do
-      initialize_with { Audit::CurationAction.new(attributes) }
-      type { "Audit::CurationAction" }
-      meta{ { curation_type: "Create" } }
-    end
+  end
+
+  factory :curation_action, class: "Audit::CurationAction" do
+    curation_type { "Create" }
+    curation_session
   end
 end

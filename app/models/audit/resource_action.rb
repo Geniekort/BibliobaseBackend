@@ -1,4 +1,6 @@
 class Audit::ResourceAction < ApplicationRecord
+  include Audit::ActionDetailer
+
   ALLOWED_RESOURCE_TYPES = %w[
     Data::DataObject
     Data::DataType
@@ -10,15 +12,11 @@ class Audit::ResourceAction < ApplicationRecord
     User
   ].freeze
 
-  validates :resource_type, presence: true, inclusion: { in: ALLOWED_RESOURCE_TYPES }
-  validate :validate_meta
-
-  belongs_to :created_by,
-             class_name: "User"
-
   belongs_to :resource,
              polymorphic: true
 
+  validates :resource_type, presence: true, inclusion: { in: ALLOWED_RESOURCE_TYPES }
+  validate :validate_meta
 
   def validate_meta
     true

@@ -2,7 +2,7 @@ require "csv"
 
 module Service::Import::Parse
   class CsvParser < Service::Base
-    def perform
+    def perform!
       record.parsed_data = process parsed_data
     end
 

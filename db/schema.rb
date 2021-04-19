@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_12_122801) do
+ActiveRecord::Schema.define(version: 2021_04_19_091528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,16 +18,27 @@ ActiveRecord::Schema.define(version: 2021_04_12_122801) do
   create_table "audit_actions", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.bigint "created_by_id", null: false
-    t.string "action_details_type"
-    t.bigint "action_details_id"
+    t.string "action_detailer_type"
+    t.bigint "action_detailer_id"
     t.string "type"
     t.jsonb "meta", default: {}
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["action_details_type", "action_details_id"], name: "index_audit_actions_on_action_details"
+    t.index ["action_detailer_type", "action_detailer_id"], name: "index_audit_actions_on_action_detailer"
     t.index ["created_by_id"], name: "index_audit_actions_on_created_by_id"
     t.index ["project_id"], name: "index_audit_actions_on_project_id"
     t.index ["type"], name: "index_audit_actions_on_type"
+  end
+
+  create_table "audit_curation_actions", force: :cascade do |t|
+    t.string "curation_type"
+    t.bigint "curation_session_id"
+    t.bigint "import_record_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["curation_session_id"], name: "index_audit_curation_actions_on_curation_session_id"
+    t.index ["curation_type"], name: "index_audit_curation_actions_on_curation_type"
+    t.index ["import_record_id"], name: "index_audit_curation_actions_on_import_record_id"
   end
 
   create_table "audit_resource_actions", force: :cascade do |t|
