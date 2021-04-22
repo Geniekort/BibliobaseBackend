@@ -59,7 +59,7 @@ RSpec.describe Mutations::CurationSession::CurateRecord, type: :request do
     end
 
     context "with create input" do
-      let(:text_attribute) { create(:attribute, name: "title", data_type: curation_session.data_type) }
+      let(:text_attribute) { create(:attribute, name: "title", data_type: data_type) }
 
       before do
         mutation mutation_string,
@@ -68,7 +68,7 @@ RSpec.describe Mutations::CurationSession::CurateRecord, type: :request do
                      curation_session_id: curation_session.id,
                      import_record_id: import_record.id,
                      curation_type: "Create",
-                     data_object_attributes: {
+                     data_object_data: {
                        text_attribute.id.to_s => "Some test value"
                      }
                    }
@@ -79,7 +79,7 @@ RSpec.describe Mutations::CurationSession::CurateRecord, type: :request do
       it "creates a CurationAction" do
         expect(curation_session.curation_actions.length).to eq 1
       end
-      
+
       it "creates a CurationAction for the specific import_record" do
         expect(curation_session.curation_actions.first.import_record).to eq import_record
       end
@@ -102,6 +102,32 @@ RSpec.describe Mutations::CurationSession::CurateRecord, type: :request do
 
       it "returns no errors" do
         expect(gql_response.errors).to eq nil
+      end
+
+      describe "validation errors" do
+        context "with required attributes but no data" do
+          let(:text_attribute) { create(:attribute, :required, name: "title", data_type: curation_session.data_type) }
+          before do
+            mutation mutation_string,
+            variables: {
+              input: {
+                curation_session_id: curation_session.id,
+                import_record_id: import_record.id,
+                curation_type: "Create",
+                data_object_data: {
+                  text_attribute.id.to_s => ""
+                }
+              }
+            },
+            context: { current_user: user }
+          end
+
+          it "returns no errors" do
+            expect(gql_response.errors).not_to eq nil
+          end
+
+        end
+        
       end
     end
   end

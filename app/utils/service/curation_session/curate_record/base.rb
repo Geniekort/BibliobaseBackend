@@ -21,10 +21,5 @@ module Service::CurationSession::CurateRecord
         }
       )
     end
-
-    # Can be used to provide detailed errors to the parent object using this service (e.g. an ApiObject)
-    def errors
-      {}
-    end
   end
 end

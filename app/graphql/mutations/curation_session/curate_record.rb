@@ -9,7 +9,10 @@ module Mutations::CurationSession
 
     def resolve(input:)
       api_object = ApiObject::CurationSession::CurateRecord.new(input.to_h.merge(user: context[:current_user]))
-      api_object.save
+
+      if api_object.validate
+        api_object.save
+      end
       return render_resource(:curated_record, api_object)
     end
   end

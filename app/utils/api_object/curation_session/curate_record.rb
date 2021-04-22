@@ -6,8 +6,7 @@ module ApiObject::CurationSession
     def save
       if curation_service.perform
         true
-      else
-        errors.merge!(curation_service)
+      else        
         false
       end
     end
@@ -15,6 +14,13 @@ module ApiObject::CurationSession
     def validate
       return false unless validate_curation_type
       return false unless validate_import_record
+
+      unless curation_service.validate
+        errors.merge!(curation_service)
+        return false
+      end
+
+      true
     end
 
     private
