@@ -34,7 +34,8 @@ module ApiObject::CurationSession
     end
 
     def curation_service
-      @curation_service ||= Service::CurationSession::CurateRecord::UpdateCuration.new(record, input)
+      service_class = "Service::CurationSession::CurateRecord::UpdateCuration::#{record.curation_type}".safe_constantize
+      @curation_service ||= service_class.new(record, input)
     end
   end
 end

@@ -63,6 +63,20 @@ RSpec.describe Mutations::CurationSession::UpdateCurateRecord, type: :request do
           it "returns no errors" do
             expect(gql_response.errors).to eq nil
           end
+
+          it "does not delete the curation_action" do
+            expect{ curation_action.reload }.not_to raise_error
+          end
+        end
+
+        context "with invalid new data_object_data values" do
+          let(:text_attribute) { create(:attribute, :required, name: "title", data_type: data_type) }
+
+          let(:input) { { data_object_data: { text_attribute.id.to_s => "" } } }
+
+          it "returns errors" do
+            expect(gql_response.errors).not_to eq nil
+          end
         end
       end
 
@@ -76,6 +90,18 @@ RSpec.describe Mutations::CurationSession::UpdateCurateRecord, type: :request do
         it "returns no errors" do
           expect(gql_response.errors).to eq nil
         end
+
+        it "deletes the curation_action" do
+          expect{ curation_action.reload }.to raise_error ActiveRecord::RecordNotFound
+        end
+
+        it "created a new curation action" do
+          last_curation_action = curation_session.curation_actions.last
+          expect(last_curation_action).not_to eq nil
+          expect(last_curation_action.curation_type).to eq "Delete"
+          expect(last_curation_action.import_record).to eq import_record
+          expect(last_curation_action.curation_session).to eq curation_session
+        end
       end
     end
 
@@ -86,16 +112,15 @@ RSpec.describe Mutations::CurationSession::UpdateCurateRecord, type: :request do
       end
 
       context "with a Create curation as new curation" do
+        let(:input) do
+          {
+            data_object_data: { text_attribute.id.to_s => "Newly value" },
+            curation_type: "Create"
+          }
+        end
+        let(:text_attribute) { create(:attribute, name: "title", data_type: data_type) }
+
         context "with new data_object_data values" do
-          let(:text_attribute) { create(:attribute, name: "title", data_type: data_type) }
-
-          let(:input) do
-            {
-              data_object_data: { text_attribute.id.to_s => "Newly value" },
-              curation_type: "Create"
-            }
-          end
-
           it "creates a DataObject" do
             expect(data_type.data_objects.length).to eq 1
           end
@@ -110,6 +135,32 @@ RSpec.describe Mutations::CurationSession::UpdateCurateRecord, type: :request do
 
           it "returns no errors" do
             expect(gql_response.errors).to eq nil
+          end
+
+          it "deletes the curation_action" do
+            expect{ curation_action.reload }.to raise_error ActiveRecord::RecordNotFound
+          end
+  
+          it "created a new curation action" do
+            last_curation_action = curation_session.curation_actions.last
+            expect(last_curation_action).not_to eq nil
+            expect(last_curation_action.curation_type).to eq "Create"
+            expect(last_curation_action.import_record).to eq import_record
+            expect(last_curation_action.curation_session).to eq curation_session
+          end
+        end
+
+        context "with invalid new data_object_data values" do
+          let(:text_attribute) { create(:attribute, :required, name: "title", data_type: data_type) }
+          let(:input) do
+            {
+              data_object_data: { text_attribute.id.to_s => "" },
+              curation_type: "Create"
+            }
+          end
+
+          it "returns errors" do
+            expect(gql_response.errors).not_to eq nil
           end
         end
       end

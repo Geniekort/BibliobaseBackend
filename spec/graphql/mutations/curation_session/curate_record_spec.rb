@@ -122,12 +122,13 @@ RSpec.describe Mutations::CurationSession::CurateRecord, type: :request do
             context: { current_user: user }
           end
 
-          it "returns no errors" do
+          it "returns errors" do
             expect(gql_response.errors).not_to eq nil
           end
 
+          it "shows specific validation errors"
+
         end
-        
       end
     end
   end
