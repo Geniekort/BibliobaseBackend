@@ -56,5 +56,8 @@ module Types
     field :curate_record,
           mutation: Mutations::CurationSession::CurateRecord,
           description: "Curate a record within a specific curation_session"
+    field :update_curate_record,
+          mutation: Mutations::CurationSession::UpdateCurateRecord,
+          description: "Update a curation done before"
   end
 end

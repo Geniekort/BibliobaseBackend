@@ -5,7 +5,8 @@ module Audit
     included do
       has_one :action,
               class_name: "Audit::Action",
-              as: :action_detailer
+              as: :action_detailer,
+              dependent: :destroy
 
       def self.create_with_action(detailer_params, action_params)
         detailer = create!(detailer_params)

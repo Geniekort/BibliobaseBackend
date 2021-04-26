@@ -33,9 +33,11 @@ ActiveRecord::Schema.define(version: 2021_04_19_091528) do
   create_table "audit_curation_actions", force: :cascade do |t|
     t.string "curation_type"
     t.bigint "curation_session_id"
+    t.bigint "created_data_object_id"
     t.bigint "import_record_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_data_object_id"], name: "index_audit_curation_actions_on_created_data_object_id"
     t.index ["curation_session_id"], name: "index_audit_curation_actions_on_curation_session_id"
     t.index ["curation_type"], name: "index_audit_curation_actions_on_curation_type"
     t.index ["import_record_id"], name: "index_audit_curation_actions_on_import_record_id"

@@ -8,12 +8,13 @@ module Service::CurationSession::CurateRecord
       super(curation_session, params)
     end
 
-    def create_curation_action
+    def create_curation_action(created_data_object = nil)
       Audit::CurationAction.create_with_action(
         {
           curation_type: self.class.name.demodulize,
           import_record_id: import_record.id,
           curation_session: record,
+          created_data_object: created_data_object
         },
         {
           created_by: params[:user],

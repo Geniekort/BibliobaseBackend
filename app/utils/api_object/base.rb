@@ -2,9 +2,10 @@ module ApiObject
   class Base
     include ActiveModel::Model
 
-    attr_reader :input
+    attr_reader :input, :record
 
-    def initialize(input = {})
+    def initialize(record = nil, input = {})
+      @record = record
       @input = input
     end
 

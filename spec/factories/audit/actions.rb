@@ -11,8 +11,10 @@ FactoryBot.define do
     curation_type { "Create" }
     curation_session
     import_record { create(:import_record, import: curation_session.import) }
-    transient do 
-      project nil
+    association :created_data_object, factory: :data_object
+
+    transient do
+      project { nil }
     end
 
     trait :with_action do
