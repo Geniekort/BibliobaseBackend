@@ -7,6 +7,7 @@ module Types::Object
     field :project, Types::Object::Project, null: false
     field :import, Types::Object::Import, null: false
     field :started_by, Types::Object::User, null: false
+    field :curatable_records, [Types::Object::ImportRecord], null: false
 
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
