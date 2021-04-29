@@ -2,7 +2,7 @@ module Mutations::CurationSession
   class Create < Mutations::BaseMutation
     graphql_name "CreateCurationSession"
 
-    argument :input, Types::Input::CurationSession, required: true
+    argument :input, Types::Input::CurationSession::Create, required: true
 
     field :curation_session, Types::Object::CurationSession, null: false
 

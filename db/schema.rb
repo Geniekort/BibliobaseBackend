@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_091528) do
     t.bigint "data_type_id", null: false
     t.bigint "import_id", null: false
     t.bigint "started_by_id", null: false
+    t.jsonb "mapping", default: {}, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["data_type_id"], name: "index_curation_sessions_on_data_type_id"

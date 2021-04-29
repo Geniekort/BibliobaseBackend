@@ -50,6 +50,9 @@ module Types
     field :create_curation_session,
           mutation: Mutations::CurationSession::Create,
           description: "Create a new curation_session"
+    field :update_curation_session,
+          mutation: Mutations::CurationSession::Update,
+          description: "Update a curation_session"
     field :delete_curation_session,
           mutation: Mutations::CurationSession::Delete,
           description: "Delete a curation_session"
