@@ -3,6 +3,7 @@ module Types::Object
     description "A curation session"
 
     field :id, ID, null: false
+    field :mapping, GraphQL::Types::JSON, null: false
     field :data_type, Types::Object::Data::DataType, null: false
     field :project, Types::Object::Project, null: false
     field :import, Types::Object::Import, null: false
