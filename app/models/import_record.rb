@@ -1,5 +1,10 @@
 class ImportRecord < ApplicationRecord
   belongs_to :import
+  has_many :curation_actions, class_name: "Audit::CurationAction"
+
+  def status
+    curation_actions.last&.curation_type || ""
+  end
 
   class << self
     def insert_all(records)
