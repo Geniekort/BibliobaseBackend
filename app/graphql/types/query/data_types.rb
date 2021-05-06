@@ -19,6 +19,7 @@ module Types::Query
     end
 
     def data_type(id:)
+      byebug
       Data::DataType.find(id)
     end
   end

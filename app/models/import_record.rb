@@ -1,9 +1,14 @@
 class ImportRecord < ApplicationRecord
   belongs_to :import
-  has_many :curation_actions, class_name: "Audit::CurationAction"
+  has_many :curation_actions,
+           class_name: "Audit::CurationAction"
 
-  def status
-    curation_actions.last&.curation_type || ""
+  def curation_actions_for_curation_session(curation_session_id)
+    curation_actions.select { |x| x.curation_session_id == curation_session_id.to_i }
+  end
+
+  def status_for_curation_session(curation_session_id)
+    curation_actions_for_curation_session(curation_session_id).last&.curation_type || ""
   end
 
   class << self

@@ -8,6 +8,13 @@ module Types::Query
         argument :project_id, GraphQL::Types::ID, required: true
       end
 
+      child_class.field :data_objects_for_data_type,
+          [Types::Object::Data::DataObject],
+          null: false do
+        description "Index DataObjects for a specific DataType"
+        argument :data_type_id, GraphQL::Types::ID, required: true
+      end
+
       child_class.field :data_type, Types::Object::Data::DataObject, null: true do
         description "Find a DataObject by ID"
         argument :id, GraphQL::Types::ID, required: true
@@ -18,8 +25,12 @@ module Types::Query
       Project.find(project_id).data_objects
     end
 
+    def data_objects_for_data_type(data_type_id:)
+      data_type(id: data_type_id).data_objects
+    end
+
     def data_type(id:)
-      Data::DataObject.find(id)
+      Data::DataType.find(id)
     end
   end
 end

@@ -21,7 +21,7 @@ module Types::Query
     end
 
     def curation_session(id:)
-      CurationSession.includes(import: {import_records: :curation_actions}).find(id)
+      CurationSession.includes(import: { import_records: :curation_actions }).find(id)
     end
   end
 end

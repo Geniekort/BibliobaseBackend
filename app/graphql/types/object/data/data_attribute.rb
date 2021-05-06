@@ -5,7 +5,7 @@ module Types::Object::Data
     field :id, ID, null: false
     field :name, String, null: false
     field :attribute_type, String, null: false
-    field :validation_definition, GraphQL::Types::JSON, null: false
+    field :validation_definition, Types::Object::Data::Attribute::ValidationDefinition, null: true
 
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
