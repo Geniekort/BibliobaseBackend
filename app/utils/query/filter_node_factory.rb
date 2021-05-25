@@ -2,6 +2,8 @@ module Query
   class FilterNodeFactory
     class << self
       def parse_node(node_key, context, subquery_hash)
+        raise InvalidQueryError, "Unknown node_key #{node_key}" unless node_class(node_key)
+
         node_class(node_key).new(node_key, context, subquery_hash)
       end
 
