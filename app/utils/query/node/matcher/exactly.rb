@@ -9,11 +9,6 @@ module Query::Node::Matcher
     end
 
     def validate
-      if node_key != "exactly"
-        errors.add(:node_key, :invalid)
-        return false
-      end
-
       super
     end
   end

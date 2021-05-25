@@ -10,6 +10,7 @@ RSpec.describe Query::Node::ControlFlow::Or do
   let(:matcher_entry) { subject.matcher_entries.first }
 
   include_examples "initializes like a filter_node"
+  include_examples "validates like a filter_node", "or"
 
   describe "#filter_object" do
     let(:data_object) { double }

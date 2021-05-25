@@ -22,19 +22,12 @@ RSpec.describe Query::Node::Matcher::Exactly do
     end
   end
 
+  include_examples "validates like a filter_node", "exactly"
+
   describe "#validate" do
     context "with valid input" do
       it "does validate" do
         expect(subject.validate).to eq true
-      end
-    end
-
-    context "with an invalid node_key" do
-      let(:node_key) { "exxxxactly" }
-
-      it "does not validate" do
-        expect(subject.validate).to eq false
-        expect(subject.full_errors_details[:node_key]).to include(error: :invalid)
       end
     end
 
