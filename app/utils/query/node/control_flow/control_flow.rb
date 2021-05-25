@@ -1,5 +1,5 @@
 module Query::Node::ControlFlow
-  class ControlFlow < Query::Node::Node
+  class ControlFlow < Query::Node::FilterNode
     attr_accessor :children
 
     def initialize(query_hash, context, node_key)

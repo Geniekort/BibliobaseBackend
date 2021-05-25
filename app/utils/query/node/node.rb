@@ -1,11 +1,14 @@
 module Query::Node
   class Node
-    attr_accessor :query_hash, :context, :node_key
+    include ActiveModel::Validations
 
-    def initialize(query_hash, context, node_key)
-      @query_hash = query_hash
+    attr_accessor :context, :node_key
+
+    def initialize(node_key, context)
       @context = context
       @node_key = node_key
+      @nested_errors_details = {}
+
     end
 
     # Validate whether this node was given correct information (query_hash, context and node key)
@@ -13,9 +16,13 @@ module Query::Node
       return true
     end
 
-    # Returns true iff the data_object matches the filter
-    def filter_object(data_object)
-      raise NotImplementedError
+    # Return validation errors of this object merged with all nested errors
+    def full_errors_details
+      errors.details.to_h.merge(@nested_errors_details)
+    end
+
+    def add_nested_errors(attribute, other_validator)
+      @nested_errors_details[attribute] = other_validator.errors.details.to_h
     end
   end
 end
