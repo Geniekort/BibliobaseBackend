@@ -5,7 +5,7 @@ RSpec.describe Query::FilterNodeFactory do
 
   describe ".parse_node" do
     let(:fake_subquery) { { "test_query_hash" => "unused" } }
-    
+
     context "with valid input" do
       {
         "and" => Query::Node::ControlFlow::And,
@@ -34,7 +34,7 @@ RSpec.describe Query::FilterNodeFactory do
 
       context "with input that does not initialize correctly" do
         it "raises a InvalidQueryError" do
-          pending "Implicitely passes, should allow granular syntax error detection in the future"
+          skip "Implicitely passes, should allow granular syntax error detection in the future"
         end
       end
     end

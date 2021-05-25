@@ -19,6 +19,10 @@ RSpec.describe Query::Node::Matcher::Exactly do
         expect(matcher_entry.value).to eq "some test value"
         expect(matcher_entry.node_key).to eq queried_attribute.name
       end
+
+      it "raises an error when missing matcher_entries in the subquery" do
+        expect{described_class.new(node_key, context, {})}.to raise_error Query::InvalidQueryError
+      end
     end
   end
 
