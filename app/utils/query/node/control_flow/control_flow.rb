@@ -6,7 +6,7 @@ module Query::Node::ControlFlow
       super(node_key, context, original_query)
 
       @children = original_query.map do |key, subquery|
-        Query::FilterNodeFactory.parse_node(key, subquery, context)
+        Query::FilterNodeFactory.parse_node(key, context, subquery)
       end
     end
   end

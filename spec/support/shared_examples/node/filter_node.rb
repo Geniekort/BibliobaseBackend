@@ -3,7 +3,7 @@ RSpec.shared_examples "initializes like a filter_node" do
     it "calls the FilterNodeFactory to construct child nodes" do
       child_node = double
       expect(Query::FilterNodeFactory).to receive(:parse_node)
-        .with("exactly", { "testnodestobestubbed" => true }, anything)
+        .with("exactly", instance_of(Query::Context), { "testnodestobestubbed" => true })
         .and_return(child_node)
 
       created_instance = described_class.new(node_key, context, query_hash)
