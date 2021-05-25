@@ -8,7 +8,7 @@ FactoryBot.define do
     project
     data_type
     attribute_type { "Text" }
-    name { "attribute_name" }
+    sequence(:name) { |n| "attribute_name_#{n}" }
     trait :required do
       validation_definition do
         {
