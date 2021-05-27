@@ -6,3 +6,9 @@ def build_simple_query_context()
 
   Query::Context.new(project, data_type)
 end
+
+def build_exactly_query_node
+  context = build_simple_query_context
+  attribute = context.queried_data_type.data_attributes.first
+  Query::Node::Matcher::Exactly.new("exactly", context, {attribute.name => "test_value"})
+end
