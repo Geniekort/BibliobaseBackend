@@ -4,7 +4,7 @@ RSpec.describe Query::Node::ControlFlow::Not do
   let(:context) { build_simple_query_context }
   let(:node_key) { "or" }
 
-  let(:query_hash) { { "exactly" => { "testnodestobestubbed" => true } } }
+  let(:query_hash) { [{ "exactly" => { "testnodestobestubbed" => true } }] }
   let(:subject) { described_class.new(node_key, context, query_hash) }
   let(:matcher_entry) { subject.matcher_entries.first }
 
