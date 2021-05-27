@@ -1,10 +1,10 @@
 module Query::Node
   class FilterNode < Node
 
-    attr_accessor :original_query
+    attr_accessor :subquery
 
-    def initialize(node_key, context, original_query)
-      @original_query = original_query
+    def initialize(node_key, context, subquery)
+      @subquery = subquery
 
       super(node_key, context)
     end

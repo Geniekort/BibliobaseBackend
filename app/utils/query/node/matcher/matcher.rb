@@ -1,16 +1,16 @@
 module Query::Node::Matcher
   class Matcher < Query::Node::FilterNode
-    def initialize(node_key, context, original_query)
-      super(node_key, context, original_query)
+    def initialize(node_key, context, subquery)
+      super(node_key, context, subquery)
       initialize_matcher_entries
     end
 
     def initialize_matcher_entries
-      unless original_query.is_a?(Hash) && !original_query.keys.empty?
+      unless subquery.is_a?(Hash) && !subquery.keys.empty?
         raise Query::InvalidQueryError, "Missing matcher_entries for #{self.class.name.demodulize.downcase}"
       end
 
-      @matcher_entries = original_query.map do |key, value|
+      @matcher_entries = subquery.map do |key, value|
         MatcherEntry.new(key, value, context)
       end
     end
