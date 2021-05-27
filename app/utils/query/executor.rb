@@ -1,19 +1,20 @@
 module Query
-  # Takes in a query string, a project and a data type, and finds all objects
+  # Takes in a query string and a data type, and finds all objects
   #  of that data type that match the query string
   class Executor
-    def initialize(project, data_type, query_string)
-      @project = project
+    def initialize(data_type, query_string)
       @data_type = data_type
       @query_string = query_string
     end
 
-    def parse_query
-
-    end
-
-    def prepare_query
-
+    # Executes a query by taking the following steps:
+    # - Parse the query
+    # - Retrieve potentially relevant data from the DB
+    # - Filter all data to return the matching records
+    def execute
+      query_root_node = Query::Parser.parse_query @data_type, @query_string
+      Query::DataRetriever.retrieve_data(query_root_node)
+      Query::DataFilter.filter_data(query_root_node)
     end
   end
 end
