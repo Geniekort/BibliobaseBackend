@@ -12,33 +12,15 @@ RSpec.describe Query::Node::ControlFlow::And do
   include_examples "initializes like a filter_node"
   include_examples "validates like a filter_node", "and"
 
-
-  # describe "#validate" do
-  #   context "with valid input" do
-  #     it "does validate" do
-  #       expect(subject.validate).to eq true
-  #     end
-  #   end
-
-  #   context "with invalidated matcher_entries" do
-  #     before do
-  #       matcher_entry.errors.add(:node_key, :invalid_attribute_name)
-  #       allow(matcher_entry).to receive(:validate).and_return false
-  #     end
-
-  #     it "merges the error details" do
-  #       expect(subject.validate).to eq false
-  #       expect(subject.full_errors_details[:matcher_entries]).to include(
-  #         {
-  #           node_key: [{ error: :invalid_attribute_name }]
-  #         }
-  #       )
-  #     end
-  #   end
-  # end
-
   describe "#filter_object" do
     let(:data_object) { double }
+
+    context "with no child nodes" do
+      it "returns true " do
+        subject.children = []
+        expect(subject.filter_object(data_object)).to eq true
+      end
+    end
 
     context "with one child node" do
       it "returns true if the child node does" do

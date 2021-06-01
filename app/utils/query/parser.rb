@@ -22,6 +22,8 @@ module Query
       end
 
       def parse_to_object(query_string)
+        return [] unless query_string.present?
+
         JSON.parse(query_string)
       rescue JSON::ParserError => e
         raise Query::InvalidQueryError, ["Invalid json provided", e]

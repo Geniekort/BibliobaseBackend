@@ -138,6 +138,18 @@ RSpec.describe Query::Parser do
       end
     end
 
+    context "with an empty query" do
+      let(:query_string) { "" }
+
+      it "returns an empty And node" do
+        result = described_class.parse_query(data_type, query_string)
+
+        expect(result).to be_a Query::Node::ControlFlow::And
+
+        expect(result.children.length).to eq 0
+      end
+    end
+
     context "with an invalid query" do
       context "with invalid keys" do
         let(:query_string) do
