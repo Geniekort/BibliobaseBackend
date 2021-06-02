@@ -1,5 +1,5 @@
-def build_simple_query_context()
-  attribute = create(:attribute)
+def build_simple_query_context(attribute_type="Text")
+  attribute = create(:attribute, attribute_type: attribute_type)
   data_type = attribute.data_type
   data_type.project = attribute.project
   project = attribute.project

@@ -9,7 +9,7 @@ RSpec.describe Query::Executor do
       let(:subject) { described_class.new(data_type, input_string)}
 
       it "executes the query execution steps" do
-        node_stub = double
+        node_stub = double(validate: true)
         result_stub = double
         expect(Query::Parser).to receive(:parse_query).with(data_type, input_string).and_return(node_stub)
         expect(Query::DataRetriever).to receive(:retrieve_data).with(node_stub)

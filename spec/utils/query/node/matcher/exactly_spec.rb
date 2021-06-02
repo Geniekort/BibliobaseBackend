@@ -21,14 +21,14 @@ RSpec.describe Query::Node::Matcher::Exactly do
       end
 
       it "raises an error when missing matcher_entries in the subquery" do
-        expect{described_class.new(node_key, context, {})}.to raise_error Query::InvalidQueryError
+        expect { described_class.new(node_key, context, {}) }.to raise_error Query::InvalidQueryError
       end
     end
   end
 
   include_examples "validates like a filter_node", "exactly"
 
-  include_examples "validates like a matcher_node"
+  include_examples "validates like a matcher_node", %w[Text Number Reference]
 
   describe "#filter_object" do
     let(:data_object) { build(:data_object, data_type: queried_data_type, project: project) }

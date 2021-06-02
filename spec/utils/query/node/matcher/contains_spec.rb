@@ -29,7 +29,7 @@ RSpec.describe Query::Node::Matcher::Contains do
 
   include_examples "validates like a filter_node", "contains"
 
-  include_examples "validates like a matcher_node"
+  include_examples "validates like a matcher_node", %w[Text]
 
   describe "#filter_object" do
     let(:data_object) { build(:data_object, data_type: queried_data_type, project: project) }

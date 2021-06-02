@@ -11,7 +11,13 @@ module Query::Node::Matcher
       end
 
       @matcher_entries = subquery.map do |key, value|
-        MatcherEntry.new(key, value, context)
+        MatcherEntry.new(
+          key,
+          value,
+          context,
+          allowed_matcher_entry_data_attribute_types,
+          allowed_matcher_entry_value_types
+        )
       end
     end
 
@@ -29,6 +35,14 @@ module Query::Node::Matcher
       end
 
       super
+    end
+
+    def allowed_matcher_entry_data_attribute_types
+      raise NotImplementedError
+    end
+
+    def allowed_matcher_entry_value_types
+      raise NotImplementedError
     end
   end
 end
