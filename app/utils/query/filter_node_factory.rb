@@ -15,7 +15,8 @@ module Query
           "and" => Query::Node::ControlFlow::And,
           "or" => Query::Node::ControlFlow::Or,
           "not" => Query::Node::ControlFlow::Not,
-          "exactly" => Query::Node::Matcher::Exactly
+          "exactly" => Query::Node::Matcher::Exactly,
+          "contains" => Query::Node::Matcher::Contains
         }[node_key]
       end
     end
