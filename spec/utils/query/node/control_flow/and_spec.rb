@@ -6,11 +6,17 @@ RSpec.describe Query::Node::ControlFlow::And do
 
   let(:query_hash) { [{ "exactly" => { "testnodestobestubbed" => true } }] }
   let(:subject) { described_class.new(node_key, context, query_hash) }
-  let(:matcher_entry) { subject.matcher_entries.first }
 
+  context "with validating children" do
+    before do
+      subject.children.each do |child|
+        allow(child).to receive(:validate).and_return true
+      end
+    end
 
-  include_examples "initializes like a filter_node"
-  include_examples "validates like a filter_node", "and"
+    include_examples "initializes like a filter_node"
+    include_examples "validates like a filter_node", "and"
+  end
 
   describe "#filter_object" do
     let(:data_object) { double }
