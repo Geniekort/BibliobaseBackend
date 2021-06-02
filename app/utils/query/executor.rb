@@ -14,7 +14,7 @@ module Query
     def execute
       query_root_node = Query::Parser.parse_query @data_type, @query_string
 
-      raise Query::InvalidQueryError, query_root_node.errors.messages unless query_root_node.validate
+      raise Query::InvalidQueryError, query_root_node.full_errors_details unless query_root_node.validate
 
       Query::DataRetriever.retrieve_data(query_root_node)
       Query::DataFilter.filter_data(query_root_node)

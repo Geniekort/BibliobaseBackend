@@ -11,5 +11,16 @@ module Query::Node::ControlFlow
         end
       end.flatten
     end
+
+    def validate 
+      children.each_with_index do |child, index|
+        unless child.validate
+          add_nested_errors(index, child)
+          return false
+        end
+      end
+
+      super
+    end
   end
 end

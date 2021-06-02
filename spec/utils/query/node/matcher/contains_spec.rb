@@ -78,7 +78,7 @@ RSpec.describe Query::Node::Matcher::Contains do
           allow(matcher_entry_2).to receive(:retrieve_object_value).with(data_object).and_return("floep WRONG value")
         end
 
-        it "returns true" do
+        it "returns false" do
           expect(subject.filter_object(data_object)).to eq false
         end
       end

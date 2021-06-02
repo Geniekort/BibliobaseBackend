@@ -26,7 +26,7 @@ module Query::Node
 
     # The valid node key that this node accepts (for validation purposes)
     def valid_node_key
-      self.class.name.demodulize.downcase
+      self.class.name.demodulize.camelcase(:lower)
     end
   end
 end

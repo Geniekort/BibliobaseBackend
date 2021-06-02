@@ -24,6 +24,11 @@ RSpec.shared_examples "validates like a filter_node" do |valid_node_key|
       it "does validate" do
         expect(subject.validate).to eq true
       end
+
+      it "has no validation errors" do
+        subject.validate
+        expect(subject.full_errors_details).to be_empty
+      end
     end
 
     context "with an invalid node_key" do

@@ -8,12 +8,11 @@ module Query::Node
       @context = context
       @node_key = node_key
       @nested_errors_details = {}
-
     end
 
     # Validate whether this node was given correct information (query_hash, context and node key)
     def validate
-      return true
+      true
     end
 
     # Return validation errors of this object merged with all nested errors
@@ -22,7 +21,7 @@ module Query::Node
     end
 
     def add_nested_errors(attribute, other_validator)
-      @nested_errors_details[attribute] = other_validator.errors.details.to_h
+      @nested_errors_details[attribute] = other_validator.full_errors_details
     end
   end
 end

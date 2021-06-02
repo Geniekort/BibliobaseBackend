@@ -7,7 +7,7 @@ RSpec.shared_examples "validates like a matcher_node" do |allowed_matcher_entry_
 
       it "does not have validation errors" do
         subject.validate
-        expect(subject.errors.details).to be_empty
+        expect(subject.full_errors_details).to be_empty
       end
     end
 
