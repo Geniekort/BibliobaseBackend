@@ -1,11 +1,11 @@
 require "rails_helper"
 
-RSpec.describe Query::Node::Matcher::AtLeast do
+RSpec.describe Query::Node::Matcher::AtMost do
   let(:context) { build_simple_query_context("Number") }
   let(:project) { context.project }
   let(:queried_data_type) { context.queried_data_type }
   let(:queried_attribute) { queried_data_type.data_attributes.first }
-  let(:node_key) { "atLeast" }
+  let(:node_key) { "atMost" }
 
   let(:query_hash) { { queried_attribute.name => 123 } }
   let(:subject) { described_class.new(node_key, context, query_hash) }
@@ -26,7 +26,7 @@ RSpec.describe Query::Node::Matcher::AtLeast do
     end
   end
 
-  include_examples "validates like a filter_node", "atLeast"
+  include_examples "validates like a filter_node", "atMost"
 
   include_examples "validates like a matcher_node", %w[Number]
 
@@ -38,7 +38,7 @@ RSpec.describe Query::Node::Matcher::AtLeast do
         allow(matcher_entry).to receive(:retrieve_object_value).with(data_object).and_return(123)
       end
 
-      it "returns false" do
+      it "returns true" do
         expect(subject.filter_object(data_object)).to eq true
       end
     end
@@ -49,7 +49,7 @@ RSpec.describe Query::Node::Matcher::AtLeast do
       end
 
       it "returns false" do
-        expect(subject.filter_object(data_object)).to eq false
+        expect(subject.filter_object(data_object)).to eq true
       end
     end
 
@@ -59,7 +59,7 @@ RSpec.describe Query::Node::Matcher::AtLeast do
       end
 
       it "returns true" do
-        expect(subject.filter_object(data_object)).to eq true
+        expect(subject.filter_object(data_object)).to eq false
       end
     end
 
@@ -84,8 +84,8 @@ RSpec.describe Query::Node::Matcher::AtLeast do
 
       context "with all matching values" do
         before do
-          allow(matcher_entry).to receive(:retrieve_object_value).with(data_object).and_return(125)
-          allow(matcher_entry_2).to receive(:retrieve_object_value).with(data_object).and_return(500)
+          allow(matcher_entry).to receive(:retrieve_object_value).with(data_object).and_return(122)
+          allow(matcher_entry_2).to receive(:retrieve_object_value).with(data_object).and_return(400)
         end
 
         it "returns true" do

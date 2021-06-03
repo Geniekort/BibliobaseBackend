@@ -37,6 +37,17 @@ module Query::Node::Matcher
       super
     end
 
+    def filter_object(data_object)
+      matcher_entries.all? do |matcher_entry|
+        object_value = matcher_entry.retrieve_object_value(data_object)
+        match_value(object_value, matcher_entry.value)
+      end
+    end
+
+    def match_value(object_value, test_value)
+      raise NotImplementedError
+    end
+
     def allowed_matcher_entry_data_attribute_types
       raise NotImplementedError
     end
