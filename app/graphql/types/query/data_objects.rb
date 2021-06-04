@@ -15,7 +15,7 @@ module Types::Query
         argument :data_type_id, GraphQL::Types::ID, required: true
       end
 
-      child_class.field :data_type, Types::Object::Data::DataObject, null: true do
+      child_class.field :data_object, Types::Object::Data::DataObject, null: true do
         description "Find a DataObject by ID"
         argument :id, GraphQL::Types::ID, required: true
       end
@@ -31,6 +31,10 @@ module Types::Query
 
     def data_type(id:)
       Data::DataType.find(id)
+    end
+
+    def data_object(id:)
+      Data::DataObject.find(id)
     end
   end
 end
