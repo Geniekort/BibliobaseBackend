@@ -1,24 +1,14 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Welcome to the backend of Bibliobase, created as part a masters thesis at the Eindhoven University of Technology (TU/e). The source code of the frontend (Vue) application is in [a different repository](https://github.com/Geniekort/Bibliobase). The frontend connect to this backend using the GraphQL API of this app.
 
-Things you may want to cover:
+To start developing this application simply run: 
 
-* Ruby version
+    $ docker-compose up --build
 
-* System dependencies
 
-* Configuration
+## Test
 
-* Database creation
+To run the tests, execute the following command:
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+    $ docker-compose run bibliobase_app bundle exec rpsec ./spec
